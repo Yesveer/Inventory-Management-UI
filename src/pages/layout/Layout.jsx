@@ -5,6 +5,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ErrorScreen, Navbar } from "../../components";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { InventoryLandingPage } from "../../pages/index.js";
 
 export default function Layout() {
   const [hasToken, setHasToken] = useState(null);
@@ -41,7 +42,7 @@ export default function Layout() {
   if (hasToken === null) {
     return <h1>Loading...</h1>;
   } else if (!hasToken) {
-    return <ErrorScreen />;
+    return <InventoryLandingPage />;
   }
 
   const navItems = [
