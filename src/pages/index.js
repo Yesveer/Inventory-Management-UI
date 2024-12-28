@@ -1,5 +1,6 @@
 export { default as Home } from "./home/Home";
 export { default as Layout } from "./layout/Layout";
+export { default as InventoryLandingPage } from "./landingPage/LandingPage";
 
 // Product exports
 export { default as Products } from "./products/Products";
