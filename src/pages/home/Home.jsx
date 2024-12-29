@@ -1,5 +1,7 @@
 import "./home.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJs,
@@ -28,9 +30,7 @@ export default function Home() {
   const [purchaseData, setPurchaseData] = useState([]);
 
   async function getProduct() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/products"
-    );
+    const res = await fetch(`${API_BASE_URL}/products`);
 
     const data = await res.json();
 
@@ -38,9 +38,7 @@ export default function Home() {
   }
 
   async function gatSales() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/sales"
-    );
+    const res = await fetch(`${API_BASE_URL}/sales`);
 
     const data = await res.json();
 

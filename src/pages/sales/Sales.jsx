@@ -1,5 +1,7 @@
 import "./sales.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +15,7 @@ export default function Sales() {
   const navigate = useNavigate();
 
   async function getsales() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/sales"
-    );
+    const res = await fetch(`${API_BASE_URL}/sales`);
     const data = await res.json();
 
     setSalesData(data);
@@ -47,7 +47,9 @@ export default function Sales() {
           toast.error("Sales not found");
         } else if (res.status === 200) {
           toast.success("Sales deleted successfully");
-          setSalesData((prevData) => prevData.filter((item) => item.id !== id));
+          setSalesData((prevData) =>
+            prevData.filter((item) => item._id !== id)
+          );
         }
       });
     } else return;

@@ -1,5 +1,7 @@
 import "./category.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +15,7 @@ export default function Category() {
   const navigate = useNavigate();
 
   async function getCategory() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/category"
-    );
+    const res = await fetch(`${API_BASE_URL}/category`);
     const data = await res.json();
 
     setCategoryData(data);
@@ -37,9 +37,7 @@ export default function Category() {
   function handleDelete(name) {
     const delteAlert = window.confirm("Delete the product");
     if (delteAlert) {
-      fetch(
-        `https://inventory-management-1m3p.onrender.com/delete/category/${name}`
-      ).then((res) => {
+      fetch(`${API_BASE_URL}/delete/category/${name}`).then((res) => {
         if (res.status === 500) {
           toast.error("Internal server error");
         } else if (res.status === 404) {

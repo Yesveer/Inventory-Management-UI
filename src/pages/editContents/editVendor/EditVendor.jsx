@@ -1,5 +1,7 @@
 import "../style.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,7 +46,7 @@ export default function EditVendor() {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://inventory-management-1m3p.onrender.com/edit/vendor/${vendorData.name}`,
+        `${API_BASE_URL}/edit/vendor/${vendorData.name}`,
         {
           method: "POST",
           body: JSON.stringify(vendorData),

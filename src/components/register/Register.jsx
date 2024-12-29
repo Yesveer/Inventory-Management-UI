@@ -1,5 +1,7 @@
 import "./register.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,14 +48,11 @@ export default function Register() {
     setLoading(true);
     e.preventDefault();
 
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/auth/newUser",
-      {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const res = await fetch(`${API_BASE_URL}/auth/newUser`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: { "Content-Type": "application/json" },
+    });
 
     const data = await res.json();
 

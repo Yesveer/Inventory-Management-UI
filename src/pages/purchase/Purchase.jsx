@@ -1,5 +1,7 @@
 import "./purchase.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +15,7 @@ export default function Purchase() {
   const navigate = useNavigate();
 
   async function getpurchase() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/purchase"
-    );
+    const res = await fetch(`${API_BASE_URL}/purchase`);
     const data = await res.json();
 
     setPurchaseData(data);
@@ -37,9 +37,7 @@ export default function Purchase() {
   function handleDelete(id) {
     const delteAlert = window.confirm("Delete the product");
     if (delteAlert) {
-      fetch(
-        `https://inventory-management-1m3p.onrender.com/delete/purchase/${id}`
-      ).then((res) => {
+      fetch(`${API_BASE_URL}/delete/purchase/${id}`).then((res) => {
         if (res.status === 500) {
           toast.error("Internal server error");
         } else if (res.status === 404) {
@@ -47,7 +45,7 @@ export default function Purchase() {
         } else if (res.status === 200) {
           toast.success("purchase deleted successfully");
           setPurchaseData((prevData) =>
-            prevData.filter((item) => item.id !== id)
+            prevData.filter((item) => item._id !== id)
           );
         }
       });

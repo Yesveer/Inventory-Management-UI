@@ -1,5 +1,7 @@
 import "./login.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import { Link } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
@@ -50,19 +52,18 @@ export default function Login() {
     setUserData((prevData) => ({ ...prevData, [id]: value }));
   }
 
+  console.log(API_BASE_URL);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await fetch(
-        "https://inventory-management-1m3p.onrender.com/auth/getUser",
-        {
-          method: "POST",
-          body: JSON.stringify(userdata),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/auth/getUser`, {
+        method: "POST",
+        body: JSON.stringify(userdata),
+        headers: { "Content-Type": "application/json" },
+      });
 
       const data = await res.json();
 

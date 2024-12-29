@@ -1,5 +1,7 @@
 import "./vendor.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +15,7 @@ export default function Vendor() {
   const navigate = useNavigate();
 
   async function getVendor() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/vendors"
-    );
+    const res = await fetch(`${API_BASE_URL}/vendors`);
     const data = await res.json();
 
     setVendorData(data);
@@ -37,9 +37,7 @@ export default function Vendor() {
   function handleDelete(name) {
     const delteAlert = window.confirm("Delete the product");
     if (delteAlert) {
-      fetch(
-        `https://inventory-management-1m3p.onrender.coms/delete/vendor/${name}`
-      ).then((res) => {
+      fetch(`${API_BASE_URL}/delete/vendor/${name}`).then((res) => {
         if (res.status === 500) {
           toast.error("Internal server error");
         } else if (res.status === 404) {

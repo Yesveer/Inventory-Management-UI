@@ -54,7 +54,7 @@ export default function PalesTableInfo(props) {
                   <td>{item.status}</td>
 
                   <td className="table_button">
-                    <button onClick={() => handleDelete(item.id)}>
+                    <button onClick={() => handleDelete(item._id)}>
                       Delete
                     </button>
                   </td>
