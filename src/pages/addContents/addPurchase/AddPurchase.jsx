@@ -1,6 +1,8 @@
 import "../style.css";
 import "./addPurchase.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,15 +48,13 @@ export default function AddPurchase() {
   const navigate = useNavigate();
 
   async function getProduct() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/products"
-    );
+    const res = await fetch(`${API_BASE_URL}/products`);
     const data = await res.json();
 
     const ProductValue = data.map((item) => ({
       value: item.name,
       price: item.price,
-      id: item.id,
+      id: item._id,
       selling_price: item.price,
     }));
 
@@ -66,9 +66,7 @@ export default function AddPurchase() {
   }
 
   async function getVendor() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/vendors"
-    );
+    const res = await fetch(`${API_BASE_URL}/vendors`);
     const data = await res.json();
 
     const vendorValue = data.map((item) => ({ value: item.name }));
@@ -133,14 +131,11 @@ export default function AddPurchase() {
 
     try {
       setLoading(true);
-      const res = await fetch(
-        "https://inventory-management-1m3p.onrender.com/add/purchase",
-        {
-          method: "POST",
-          body: JSON.stringify(salesData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/add/purchase`, {
+        method: "POST",
+        body: JSON.stringify(salesData),
+        headers: { "Content-Type": "application/json" },
+      });
 
       const data = await res.json();
       if (res.status === 400 && data.missingFields) {

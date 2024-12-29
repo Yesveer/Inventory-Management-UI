@@ -1,5 +1,7 @@
 import "./product.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +15,7 @@ export default function Products() {
   const navigate = useNavigate();
 
   async function getProduct() {
-    const res = await fetch(
-      "https://inventory-management-1m3p.onrender.com/products"
-    );
+    const res = await fetch(`${API_BASE_URL}/products`);
     const data = await res.json();
 
     setProductData(data);
@@ -37,9 +37,7 @@ export default function Products() {
   function handleDelete(skuNo) {
     const delteAlert = window.confirm("Delete the product");
     if (delteAlert) {
-      fetch(
-        `https://inventory-management-1m3p.onrender.com/delete/product/${skuNo}`
-      ).then((res) => {
+      fetch(`${API_BASE_URL}/delete/product/${skuNo}`).then((res) => {
         if (res.status === 500) {
           toast.error("Internal server error");
         } else if (res.status === 404) {

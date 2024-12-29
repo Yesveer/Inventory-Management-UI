@@ -1,5 +1,7 @@
 import "./layout.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ErrorScreen, Navbar } from "../../components";
@@ -23,7 +25,7 @@ export default function Layout() {
       setHasToken(false);
     }
 
-    fetch("https://inventory-management-1m3p.onrender.com/auth/getEmail", {
+    fetch(`${API_BASE_URL}/auth/getEmail`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

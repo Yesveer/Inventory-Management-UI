@@ -1,5 +1,7 @@
 import "../style.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,14 +28,11 @@ export default function AddVendors() {
 
     try {
       setLoading(true);
-      const res = await fetch(
-        "https://inventory-management-1m3p.onrender.com/add/vendors",
-        {
-          method: "POST",
-          body: JSON.stringify(vendorData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/add/vendors`, {
+        method: "POST",
+        body: JSON.stringify(vendorData),
+        headers: { "Content-Type": "application/json" },
+      });
 
       const data = await res.json();
       if (res.status === 400 && data.missingFields) {

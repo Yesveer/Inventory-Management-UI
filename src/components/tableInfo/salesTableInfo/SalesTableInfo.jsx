@@ -53,7 +53,7 @@ export default function SalesTableInfo(props) {
                   <td>{item.price}</td>
 
                   <td className="table_button">
-                    <button onClick={() => handleDelete(item.id)}>
+                    <button onClick={() => handleDelete(item._id)}>
                       Delete
                     </button>
                   </td>
